@@ -179,4 +179,9 @@ public class MarcaDaoImpl implements IMarcaDao {
         return resultList;
     }
 
+    @Override
+    public Object buscarPorId(Object object) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

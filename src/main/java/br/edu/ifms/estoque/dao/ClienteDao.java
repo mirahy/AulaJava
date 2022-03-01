@@ -42,16 +42,26 @@ public class ClienteDao implements IClienteDao {
 
     @Override
     public Cliente alterar(Cliente object) {
+        EntityManager em = getEntityManager();
+        em.getTransaction().begin();
+        em.merge(object);
+        em.getTransaction().commit();
+        return object;   
 
     }
 
     @Override
     public void excluir(Object object) {
-
+        EntityManager em = getEntityManager();
+        em.getTransaction().begin();
+        em.remove(object);
+        em.getTransaction().commit();
     }
 
     @Override
     public List<Cliente> listar() {
+
+        return null;
 
     }
 
