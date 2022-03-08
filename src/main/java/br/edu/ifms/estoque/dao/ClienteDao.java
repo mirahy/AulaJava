@@ -28,7 +28,7 @@ public class ClienteDao implements IClienteDao {
         EntityManager em = getEntityManager();
         String condicao = "";
         List<Cliente> clientes = null;
-        Boolean hasNome = nome != null || !nome.isBlank() || !nome.isEmpty();
+        Boolean hasNome = nome != null && !nome.isBlank() && !nome.isEmpty();
         if(hasNome){
             condicao = "WHERE c.nome LIKE ?1 ";
         }

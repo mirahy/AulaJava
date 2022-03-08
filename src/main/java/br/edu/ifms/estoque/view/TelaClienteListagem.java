@@ -5,14 +5,23 @@
 
 package br.edu.ifms.estoque.view;
 
+import br.edu.ifms.estoque.dao.ClienteDao;
+import br.edu.ifms.estoque.database.ClienteHibernateTableModel;
+import br.edu.ifms.facade.ClienteFacade;
+
 /**
  *
  * @author professor
  */
 public class TelaClienteListagem extends javax.swing.JFrame {
+    
+    private ClienteHibernateTableModel model;
+    private ClienteFacade facade;
 
     /** Creates new form TelaClienteListagem */
     public TelaClienteListagem() {
+        model = new ClienteHibernateTableModel();
+        facade = new ClienteFacade();
         initComponents();
     }
 
@@ -31,6 +40,7 @@ public class TelaClienteListagem extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         txtNome = new javax.swing.JTextField();
         btBuscar = new javax.swing.JButton();
+        btCadastrar = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -63,6 +73,13 @@ public class TelaClienteListagem extends javax.swing.JFrame {
 
         btBuscar.setText("Buscar");
 
+        btCadastrar.setText("Cadastrar Cliente");
+        btCadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btCadastrarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -74,7 +91,9 @@ public class TelaClienteListagem extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 502, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btBuscar)))
+                        .addComponent(btBuscar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -85,23 +104,14 @@ public class TelaClienteListagem extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btBuscar))
+                    .addComponent(btBuscar)
+                    .addComponent(btCadastrar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel3.setBackground(new java.awt.Color(184, 218, 172));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+        jTable1.setModel(model);
         jScrollPane1.setViewportView(jTable1);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -141,6 +151,14 @@ public class TelaClienteListagem extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCadastrarActionPerformed
+        // TODO add your handling code here:
+        TelaFormCliente form = facade.abrirFormulario(this, facade);
+        form.setVisible(true);
+        
+        model.refresh(null);
+    }//GEN-LAST:event_btCadastrarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -178,6 +196,7 @@ public class TelaClienteListagem extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btBuscar;
+    private javax.swing.JButton btCadastrar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
