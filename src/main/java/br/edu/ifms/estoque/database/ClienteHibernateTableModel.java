@@ -12,55 +12,52 @@ import javax.swing.table.AbstractTableModel;
 
 /**
  *
- * @author aluno
+ * @author professor
  */
-public class ClienteHibernateTableModel extends AbstractTableModel{
+public class ClienteHibernateTableModel extends AbstractTableModel {
     
     private IClienteDao dao;
     private List<Cliente> lista;
-    private String[] colunas = {"id", "Nome", "Telefone", "E-mail"};
+    private String[] colunas = {"Id", "Nome", "Telefone", "E-mail"};
     
-    public  ClienteHibernateTableModel(){
+    public ClienteHibernateTableModel() {
         dao = new ClienteDao();
         lista = dao.listar();
-        
     }
     
-    public void refresh(String nome){
+    public void refresh(String nome) {
         lista.clear();
         lista.addAll(dao.buscarPorNome(nome));
         fireTableStructureChanged();
     }
-    
-    public int getRowCount(){
+
+    @Override
+    public int getRowCount() {
         return lista.size();
     }
-    
-    public  int getColumnCount(){
+
+    @Override
+    public int getColumnCount() {
         return colunas.length;
     }
 
-
     @Override
-    public Object getValueAt(int col, int row) {
+    public Object getValueAt(int row, int col) {
         Cliente obj = lista.get(row);
-        switch(col){
+        switch (col) {
             case 0: return obj.getId();
             case 1: return obj.getNome();
             case 2: return obj.getTelefone();
             case 3: return obj.getEmail();
             default:
                 return "";
-        
+        }
     }
-        
-        
-    
-}
 
     @Override
     public Class<?> getColumnClass(int columnIndex) {
-        if(columnIndex == 0){
+        
+        if (columnIndex == 0) {
             return Long.class;
         }
         return String.class;
@@ -69,10 +66,8 @@ public class ClienteHibernateTableModel extends AbstractTableModel{
     @Override
     public String getColumnName(int column) {
         return colunas[column];
-
     }
     
-   
     
     
 }
