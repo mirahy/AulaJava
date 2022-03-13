@@ -30,7 +30,7 @@ public class ClienteFacade {
         this(new ClienteDao());
     }
     
-    public TelaFormCliente abrirFormulario(JFrame frame, ClienteFacade facade){
+    public TelaFormCliente abrirFormulario(JFrame frame, ClienteFacade facade, Object rowId){
         TelaFormCliente dialog = new TelaFormCliente(frame, true, facade);
         dialog.addWindowListener(new WindowAdapter() {
             @Override
@@ -39,6 +39,12 @@ public class ClienteFacade {
             }        
             
         });
+        
+        if(rowId != null ){
+            Cliente cliente = new Cliente();
+            cliente = dao.buscarPorId(rowId);
+            dialog.setDados(cliente);  
+        }
         return dialog;
         
     }
@@ -61,6 +67,40 @@ public class ClienteFacade {
         cliente.setCpf(txtCPF.getText());
         
         dao.inserir(cliente);
+
+        return true;
+ 
+    }
+    
+    public boolean alterar(
+            JTextField txtId,
+            JTextField txtNome,
+            JTextField txtTelefone,
+            JTextField txtEmail,
+            JTextField txtCPF
+    ){
+        boolean isId = txtId.getText().matches("\\d+");
+        Long id = isId ? Long.parseLong(txtId.getText()) : null;
+        
+        Cliente cliente = new Cliente();
+        cliente.setId(id);
+        cliente.setNome(txtNome.getText());
+        cliente.setTelefone(txtTelefone.getText());
+        cliente.setEmail(txtEmail.getText());
+        cliente.setCpf(txtCPF.getText());
+        
+        dao.alterar(cliente);
+       
+        return true;
+ 
+    }
+    public boolean excluir(
+            JTextField txtId
+    ){
+        boolean isId = txtId.getText().matches("\\d+");
+        Long id = isId ? Long.parseLong(txtId.getText()) : null;
+        
+        dao.excluir(id);
         
         return true;
  

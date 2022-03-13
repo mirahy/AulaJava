@@ -69,10 +69,12 @@ public class TelaClienteListagem extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(210, 210, 234));
 
-        jLabel2.setText("Digite o nome do cliente para buscar");
+        jLabel2.setText("Digite o nome do cliente para buscar:");
 
+        btBuscar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btBuscar.setText("Buscar");
 
+        btCadastrar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btCadastrar.setText("Cadastrar Cliente");
         btCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -89,29 +91,35 @@ public class TelaClienteListagem extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 502, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 451, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(btBuscar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(btCadastrar)))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(6, 6, 6)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btBuscar)
-                    .addComponent(btCadastrar))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btBuscar)
+                        .addComponent(btCadastrar))
+                    .addComponent(txtNome))
+                .addContainerGap())
         );
 
         jPanel3.setBackground(new java.awt.Color(184, 218, 172));
 
         jTable1.setModel(model);
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -153,11 +161,24 @@ public class TelaClienteListagem extends javax.swing.JFrame {
 
     private void btCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCadastrarActionPerformed
         // TODO add your handling code here:
-        TelaFormCliente form = facade.abrirFormulario(this, facade);
+        TelaFormCliente form = facade.abrirFormulario(this, facade, null);
         form.setVisible(true);
         
         model.refresh(null);
     }//GEN-LAST:event_btCadastrarActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        // TODO add your handling code here:
+        int linhaSelecionada = -1;
+	linhaSelecionada = jTable1.getSelectedRow();
+	if (linhaSelecionada >= 0) {
+            Object rowId =   jTable1.getValueAt(linhaSelecionada, 0);
+            TelaFormCliente form = facade.abrirFormulario(this, facade, rowId);
+            form.setVisible(true);
+        
+            model.refresh(null);
+	}
+    }//GEN-LAST:event_jTable1MouseClicked
 
     /**
      * @param args the command line arguments

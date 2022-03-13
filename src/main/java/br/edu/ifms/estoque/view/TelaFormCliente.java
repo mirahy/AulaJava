@@ -4,6 +4,7 @@
  */
 package br.edu.ifms.estoque.view;
 
+import br.edu.ifms.estoque.model.Cliente;
 import br.edu.ifms.facade.ClienteFacade;
 import javax.swing.JOptionPane;
 
@@ -22,8 +23,20 @@ public class TelaFormCliente extends javax.swing.JDialog {
     public TelaFormCliente(java.awt.Frame parent, boolean modal, ClienteFacade facade){
         super(parent, modal);
         this.facade = facade;
+        setUndecorated(modal);
         initComponents();
+        btExcluir.setEnabled(false);
     }
+    
+    public void setDados(Cliente cliente){
+        btExcluir.setEnabled(true);
+        txtId.setText(String.valueOf(cliente.getId()));
+        txtNome.setText(cliente.getNome());
+        txtEmail.setText(cliente.getEmail());
+        txtCPF.setText(cliente.getCpf());
+        txtTelefone.setText(cliente.getTelefone());
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -39,6 +52,7 @@ public class TelaFormCliente extends javax.swing.JDialog {
         jPanel2 = new javax.swing.JPanel();
         btSalvar = new javax.swing.JButton();
         btFechar = new javax.swing.JButton();
+        btExcluir = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -74,7 +88,7 @@ public class TelaFormCliente extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
-        btSalvar.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        btSalvar.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         btSalvar.setText("Salvar");
         btSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -82,11 +96,19 @@ public class TelaFormCliente extends javax.swing.JDialog {
             }
         });
 
-        btFechar.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        btFechar.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         btFechar.setText("Fechar");
         btFechar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btFecharActionPerformed(evt);
+            }
+        });
+
+        btExcluir.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btExcluir.setText("Excluir");
+        btExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btExcluirActionPerformed(evt);
             }
         });
 
@@ -97,9 +119,11 @@ public class TelaFormCliente extends javax.swing.JDialog {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(189, 189, 189)
                 .addComponent(btSalvar)
-                .addGap(45, 45, 45)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btExcluir)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btFechar)
-                .addContainerGap(264, Short.MAX_VALUE))
+                .addContainerGap(200, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -107,11 +131,10 @@ public class TelaFormCliente extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btSalvar)
-                    .addComponent(btFechar))
+                    .addComponent(btFechar)
+                    .addComponent(btExcluir))
                 .addContainerGap())
         );
-
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
         jLabel2.setText("Nome:");
 
@@ -124,6 +147,7 @@ public class TelaFormCliente extends javax.swing.JDialog {
         jLabel6.setText("Id:");
 
         txtId.setEditable(false);
+        txtId.setEnabled(false);
         txtId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtIdActionPerformed(evt);
@@ -179,7 +203,7 @@ public class TelaFormCliente extends javax.swing.JDialog {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
-                .addContainerGap(79, Short.MAX_VALUE))
+                .addContainerGap(85, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -214,7 +238,8 @@ public class TelaFormCliente extends javax.swing.JDialog {
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
         // TODO add your handling code here:
-        if(JOptionPane.showConfirmDialog(TelaFormCliente.this, "Deseja salvar esses dados?", 
+        if(!(txtId.getText().length() > 0)){
+            if(JOptionPane.showConfirmDialog(TelaFormCliente.this, "Deseja salvar esses dados?", 
                 "Salvar", JOptionPane.YES_NO_OPTION,
                 JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
             facade.salvar(txtId, txtNome, txtTelefone, txtEmail, txtCPF);
@@ -222,11 +247,36 @@ public class TelaFormCliente extends javax.swing.JDialog {
                     "Informação", JOptionPane.INFORMATION_MESSAGE);
             dispose();
         }
+            
+        }else{
+            if(JOptionPane.showConfirmDialog(TelaFormCliente.this, "Deseja editar esses dados?", 
+                "Editar", JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION && txtId.getText().length() > 0){
+            facade.alterar(txtId, txtNome, txtTelefone, txtEmail, txtCPF);
+            JOptionPane.showMessageDialog(this, "Dados editados com sucesso!",
+                    "Informação", JOptionPane.INFORMATION_MESSAGE);
+            dispose();
+            }
+            
+        }
     }//GEN-LAST:event_btSalvarActionPerformed
+
+    private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
+        // TODO add your handling code here:
+        if(JOptionPane.showConfirmDialog(TelaFormCliente.this, "Deseja excluir esses dados?", 
+                "Excluir", JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
+            facade.excluir(txtId);
+            JOptionPane.showMessageDialog(this, "Dados excluidos com sucesso!",
+                    "Informação", JOptionPane.INFORMATION_MESSAGE);
+            dispose();
+        }
+    }//GEN-LAST:event_btExcluirActionPerformed
 
    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btExcluir;
     private javax.swing.JButton btFechar;
     private javax.swing.JButton btSalvar;
     private javax.swing.JLabel jLabel1;
