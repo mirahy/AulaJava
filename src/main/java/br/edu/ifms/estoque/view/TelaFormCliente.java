@@ -5,7 +5,7 @@
 package br.edu.ifms.estoque.view;
 
 import br.edu.ifms.estoque.model.Cliente;
-import br.edu.ifms.facade.ClienteFacade;
+import br.edu.ifms.estoque.facade.ClienteFacade;
 import javax.swing.JOptionPane;
 
 /**

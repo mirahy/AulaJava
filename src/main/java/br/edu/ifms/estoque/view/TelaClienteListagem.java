@@ -7,7 +7,7 @@ package br.edu.ifms.estoque.view;
 
 import br.edu.ifms.estoque.dao.ClienteDao;
 import br.edu.ifms.estoque.database.ClienteHibernateTableModel;
-import br.edu.ifms.facade.ClienteFacade;
+import br.edu.ifms.estoque.facade.ClienteFacade;
 
 /**
  *
@@ -131,8 +131,7 @@ public class TelaClienteListagem extends javax.swing.JFrame {
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(52, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
