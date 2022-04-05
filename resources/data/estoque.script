@@ -50,4 +50,3 @@ SET SCHEMA PUBLIC
 INSERT INTO CLIENTE VALUES(2,'789.456.123-33','mirahy.fonseca@gmail.com','Mirahy Fonseca','67 96325-8741')
 INSERT INTO CLIENTE VALUES(3,'741.852.963-85','mirahy.ribeiro@gmail.com','Mirahy Ribeiro','67 85214-7963')
 INSERT INTO CLIENTE VALUES(4,'123.456.789-99','mirahy@gmail.com','Mirahy','67 99877-5214')
-INSERT INTO CLIENTE VALUES(7,'745.985.145-88','joao@gmail.com','Jo\u00e3o','67 85465-2222')

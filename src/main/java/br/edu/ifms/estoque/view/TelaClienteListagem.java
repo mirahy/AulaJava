@@ -8,6 +8,7 @@ package br.edu.ifms.estoque.view;
 import br.edu.ifms.estoque.dao.ClienteDao;
 import br.edu.ifms.estoque.database.ClienteHibernateTableModel;
 import br.edu.ifms.estoque.facade.ClienteFacade;
+import br.edu.ifms.estoque.mediator.ButtonClienteMediator;
 
 /**
  *
@@ -17,12 +18,26 @@ public class TelaClienteListagem extends javax.swing.JFrame {
     
     private ClienteHibernateTableModel model;
     private ClienteFacade facade;
+    
+    private ButtonClienteMediator mediator = new ButtonClienteMediator();
 
     /** Creates new form TelaClienteListagem */
     public TelaClienteListagem() {
         model = new ClienteHibernateTableModel();
         facade = new ClienteFacade();
         initComponents();
+        
+        mediator.registerVisualizar(btVisualizar);
+        
+        refresh();
+ 
+    }
+    
+    private void refresh(){
+        if (tabela.getSelectedRow() > -1)
+            mediator.ativarVisualizar();
+        else
+            mediator.desativarVisualizar();
     }
 
     /** This method is called from within the constructor to
@@ -43,7 +58,9 @@ public class TelaClienteListagem extends javax.swing.JFrame {
         btCadastrar = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tabela = new javax.swing.JTable();
+        jPanel4 = new javax.swing.JPanel();
+        btVisualizar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -96,7 +113,7 @@ public class TelaClienteListagem extends javax.swing.JFrame {
                         .addComponent(btBuscar)
                         .addGap(18, 18, 18)
                         .addComponent(btCadastrar)))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -114,24 +131,55 @@ public class TelaClienteListagem extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(184, 218, 172));
 
-        jTable1.setModel(model);
-        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+        tabela.setModel(model);
+        tabela.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTable1MouseClicked(evt);
+                tabelaMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tabela);
+
+        btVisualizar.setText("Visualizar");
+        btVisualizar.setToolTipText("");
+        btVisualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btVisualizarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btVisualizar)
+                .addContainerGap(762, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btVisualizar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 756, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 862, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -166,18 +214,23 @@ public class TelaClienteListagem extends javax.swing.JFrame {
         model.refresh(null);
     }//GEN-LAST:event_btCadastrarActionPerformed
 
-    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+    private void tabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaMouseClicked
         // TODO add your handling code here:
-        int linhaSelecionada = -1;
-	linhaSelecionada = jTable1.getSelectedRow();
+       refresh();
+    }//GEN-LAST:event_tabelaMouseClicked
+
+    private void btVisualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVisualizarActionPerformed
+        // TODO add your handling code here:
+         int linhaSelecionada = -1;
+	linhaSelecionada = tabela.getSelectedRow();
 	if (linhaSelecionada >= 0) {
-            Object rowId =   jTable1.getValueAt(linhaSelecionada, 0);
+            Object rowId =   tabela.getValueAt(linhaSelecionada, 0);
             TelaFormCliente form = facade.abrirFormulario(this, facade, rowId);
             form.setVisible(true);
         
-            model.refresh(null);
+            refresh();
 	}
-    }//GEN-LAST:event_jTable1MouseClicked
+    }//GEN-LAST:event_btVisualizarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -217,13 +270,15 @@ public class TelaClienteListagem extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btBuscar;
     private javax.swing.JButton btCadastrar;
+    private javax.swing.JButton btVisualizar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tabela;
     private javax.swing.JTextField txtNome;
     // End of variables declaration//GEN-END:variables
 

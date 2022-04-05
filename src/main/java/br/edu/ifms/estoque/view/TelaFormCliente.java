@@ -53,6 +53,7 @@ public class TelaFormCliente extends javax.swing.JDialog {
         btSalvar = new javax.swing.JButton();
         btFechar = new javax.swing.JButton();
         btExcluir = new javax.swing.JButton();
+        btSalvar1 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -112,18 +113,28 @@ public class TelaFormCliente extends javax.swing.JDialog {
             }
         });
 
+        btSalvar1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btSalvar1.setText("Editar");
+        btSalvar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSalvar1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(189, 189, 189)
+                .addGap(112, 112, 112)
                 .addComponent(btSalvar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btSalvar1)
+                .addGap(18, 18, 18)
                 .addComponent(btExcluir)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btFechar)
-                .addContainerGap(200, Short.MAX_VALUE))
+                .addContainerGap(184, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -132,7 +143,8 @@ public class TelaFormCliente extends javax.swing.JDialog {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btSalvar)
                     .addComponent(btFechar)
-                    .addComponent(btExcluir))
+                    .addComponent(btExcluir)
+                    .addComponent(btSalvar1))
                 .addContainerGap())
         );
 
@@ -273,12 +285,17 @@ public class TelaFormCliente extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btExcluirActionPerformed
 
+    private void btSalvar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvar1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btSalvar1ActionPerformed
+
    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btExcluir;
     private javax.swing.JButton btFechar;
     private javax.swing.JButton btSalvar;
+    private javax.swing.JButton btSalvar1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
