@@ -16,14 +16,15 @@ public class ButtonClienteMediator {
     private JButton btEditar;
     private JButton btExcluir;
     private JButton btVisualizar;
+    private JButton btFechar;
     
     
     public  void registerSalvar(JButton btSalvar){
         this.btSalvar = btSalvar;
     }
     
-    public  void registerEditar(JButton bteditar){
-        this.btEditar = bteditar;
+    public  void registerEditar(JButton btEditar){
+        this.btEditar = btEditar;
     }
     
     public  void registerExcluir(JButton btExcluir){
@@ -40,6 +41,17 @@ public class ButtonClienteMediator {
     
     public  void desativarVisualizar(){
         this.btVisualizar.setVisible(false);
+    }
+    
+    public void editar(){
+        this.btEditar.setVisible(false);
+        this.btExcluir.setVisible(false);
+        this.btSalvar.setVisible(true);
+        this.btFechar.setVisible(true);
+    }
+    
+    public void desartivarSalvar(){
+        this.btSalvar.setVisible(false);
     }
     
     

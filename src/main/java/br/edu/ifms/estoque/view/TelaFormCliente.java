@@ -6,6 +6,7 @@ package br.edu.ifms.estoque.view;
 
 import br.edu.ifms.estoque.model.Cliente;
 import br.edu.ifms.estoque.facade.ClienteFacade;
+import br.edu.ifms.estoque.mediator.ButtonClienteMediator;
 import javax.swing.JOptionPane;
 
 /**
@@ -15,6 +16,7 @@ import javax.swing.JOptionPane;
 public class TelaFormCliente extends javax.swing.JDialog {
     
     private ClienteFacade facade;
+    private ButtonClienteMediator mediator = new ButtonClienteMediator();
 
     /**
      * Creates new form TelaFormCliente
@@ -25,7 +27,16 @@ public class TelaFormCliente extends javax.swing.JDialog {
         this.facade = facade;
         setUndecorated(modal);
         initComponents();
-        btExcluir.setEnabled(false);
+        mediator.registerSalvar(btSalvar);
+        mediator.registerEditar(btEditar);
+        mediator.registerEditar(btFechar);
+        mediator.registerExcluir(btExcluir);
+        
+        refresh();
+    }
+    
+    private void refresh(){
+        mediator.desartivarSalvar();
     }
     
     public void setDados(Cliente cliente){
@@ -53,7 +64,7 @@ public class TelaFormCliente extends javax.swing.JDialog {
         btSalvar = new javax.swing.JButton();
         btFechar = new javax.swing.JButton();
         btExcluir = new javax.swing.JButton();
-        btSalvar1 = new javax.swing.JButton();
+        btEditar = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -113,11 +124,11 @@ public class TelaFormCliente extends javax.swing.JDialog {
             }
         });
 
-        btSalvar1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        btSalvar1.setText("Editar");
-        btSalvar1.addActionListener(new java.awt.event.ActionListener() {
+        btEditar.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btEditar.setText("Editar");
+        btEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btSalvar1ActionPerformed(evt);
+                btEditarActionPerformed(evt);
             }
         });
 
@@ -129,7 +140,7 @@ public class TelaFormCliente extends javax.swing.JDialog {
                 .addGap(112, 112, 112)
                 .addComponent(btSalvar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btSalvar1)
+                .addComponent(btEditar)
                 .addGap(18, 18, 18)
                 .addComponent(btExcluir)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -144,7 +155,7 @@ public class TelaFormCliente extends javax.swing.JDialog {
                     .addComponent(btSalvar)
                     .addComponent(btFechar)
                     .addComponent(btExcluir)
-                    .addComponent(btSalvar1))
+                    .addComponent(btEditar))
                 .addContainerGap())
         );
 
@@ -285,17 +296,18 @@ public class TelaFormCliente extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btExcluirActionPerformed
 
-    private void btSalvar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvar1ActionPerformed
+    private void btEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btSalvar1ActionPerformed
+        mediator.editar();
+    }//GEN-LAST:event_btEditarActionPerformed
 
    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btEditar;
     private javax.swing.JButton btExcluir;
     private javax.swing.JButton btFechar;
     private javax.swing.JButton btSalvar;
-    private javax.swing.JButton btSalvar1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

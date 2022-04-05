@@ -18,7 +18,6 @@ public class TelaClienteListagem extends javax.swing.JFrame {
     
     private ClienteHibernateTableModel model;
     private ClienteFacade facade;
-    
     private ButtonClienteMediator mediator = new ButtonClienteMediator();
 
     /** Creates new form TelaClienteListagem */
@@ -88,10 +87,10 @@ public class TelaClienteListagem extends javax.swing.JFrame {
 
         jLabel2.setText("Digite o nome do cliente para buscar:");
 
-        btBuscar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btBuscar.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         btBuscar.setText("Buscar");
 
-        btCadastrar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btCadastrar.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         btCadastrar.setText("Cadastrar Cliente");
         btCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -139,6 +138,7 @@ public class TelaClienteListagem extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tabela);
 
+        btVisualizar.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         btVisualizar.setText("Visualizar");
         btVisualizar.setToolTipText("");
         btVisualizar.addActionListener(new java.awt.event.ActionListener() {
@@ -154,33 +154,29 @@ public class TelaClienteListagem extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btVisualizar)
-                .addContainerGap(762, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btVisualizar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 862, Short.MAX_VALUE)
+            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -228,7 +224,7 @@ public class TelaClienteListagem extends javax.swing.JFrame {
             TelaFormCliente form = facade.abrirFormulario(this, facade, rowId);
             form.setVisible(true);
         
-            refresh();
+           mediator.desativarVisualizar();
 	}
     }//GEN-LAST:event_btVisualizarActionPerformed
 
